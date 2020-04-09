@@ -5,6 +5,7 @@ import com.wei.demo.common.RemotingHelper;
 import com.wei.demo.util.WebsocketUtils;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,8 @@ public class NettyConnectManageHandler extends ChannelDuplexHandler {
                 log.warn("NETTY SERVER PIPELINE: IDLE exception [{}],close channel!", remoteAddress);
                 WebsocketUtils.closeChannel(ctx.channel());
             }
+        }else if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE){
+            ctx.pipeline().remove(HttpRequestHandler.class);//握手成功后将处理http请求的handler从pipeline中移除
         }
         ctx.fireUserEventTriggered(evt);
     }

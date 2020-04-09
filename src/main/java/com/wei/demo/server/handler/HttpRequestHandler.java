@@ -8,6 +8,9 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
+/**
+ * Http请求处理器
+ */
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     @Override

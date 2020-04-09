@@ -65,12 +65,9 @@ public class NettyServer {
                 });
         try {
             ChannelFuture channelFuture = boot.bind(nettyServerPort).sync();
-            channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
-                @Override
-                public void operationComplete(Future<? super Void> future) throws Exception {
-                    if (future.isSuccess()) {
-                        log.info("NettyServer启动成功，端口是：{}，等待客户端连接......", nettyServerPort);
-                    }
+            channelFuture.addListener(future -> {
+                if (future.isSuccess()) {
+                    log.info("NettyServer启动成功，端口是：{}，等待客户端连接......", nettyServerPort);
                 }
             });
 

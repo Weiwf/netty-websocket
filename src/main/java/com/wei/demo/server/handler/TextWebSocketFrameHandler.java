@@ -8,6 +8,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import java.util.Date;
 
+/**
+ * 处理webcoket中的文本消息
+ */
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     public TextWebSocketFrameHandler() {
@@ -21,16 +24,6 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         TextWebSocketFrame tws = new TextWebSocketFrame(new Date().toString() + ctx.channel().id() + "=====>>>>" + request);
         NettyConfig.group.add(ctx.channel());
         ctx.writeAndFlush(tws);
-    }
-
-
-    @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
-            ctx.pipeline().remove(HttpRequestHandler.class);
-        } else {
-            super.userEventTriggered(ctx, evt);
-        }
     }
 
 }
