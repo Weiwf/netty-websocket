@@ -32,7 +32,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 @Slf4j
 public class NettyServer {
-    private ServerBootstrap boot;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workGroup;
     private DefaultEventExecutorGroup defaultEventExecutorGroup;
@@ -58,7 +57,7 @@ public class NettyServer {
     private void start() {
         bossGroup = new NioEventLoopGroup(1);
         workGroup = new NioEventLoopGroup();
-        boot = new ServerBootstrap();
+        ServerBootstrap boot = new ServerBootstrap();
         boot.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
@@ -106,6 +105,9 @@ public class NettyServer {
             //优雅的退出
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
+            if (this.defaultEventExecutorGroup != null) {
+                this.defaultEventExecutorGroup.shutdownGracefully();
+            }
         } catch (Exception e) {
             log.error("NettyServer shutdown exception, ", e);
         }
