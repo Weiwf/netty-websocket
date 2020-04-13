@@ -1,7 +1,6 @@
 package com.wei.demo.controller;
 
 import com.wei.demo.config.NettyConfig;
-import com.wei.demo.server.NettyServer;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 
 @Controller
 public class IndexController {

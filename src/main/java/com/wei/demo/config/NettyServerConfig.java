@@ -14,8 +14,5 @@ public class NettyServerConfig {
     @Value("${netty.server.port}")
     private Integer nettyServerPort;
 
-    @Value("${websocket.uri}")
-    private String websocketUri;
-
     private int eventWorkThreads = 4;
 }
