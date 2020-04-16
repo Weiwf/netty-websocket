@@ -14,7 +14,8 @@
         function connect() {
             if (window.WebSocket) {
                 console.log('开始建立webscoket连接。。。');
-                socket = new WebSocket("ws://localhost:8888/websocket");
+                //socket = new WebSocket("ws://localhost:9001/netty-service/websocket");
+                socket = new WebSocket("ws://localhost:8888/websocket")
                 console.log(socket);
                 socket.onmessage = function (event) {
                     var ta = document.getElementById('responseContent');

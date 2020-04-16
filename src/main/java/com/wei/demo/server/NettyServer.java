@@ -20,7 +20,6 @@ import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -64,17 +63,7 @@ public class NettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
                         ChannelPipeline pipeline = nioSocketChannel.pipeline();
-                        /*log.info("NettyServer.initChannel()，当前线程是：" + Thread.currentThread().getName());
-pipeline.addLast(new IdleStateHandler(0, 0, nettyServerConfig.getNettyServerIdleTime(), TimeUnit.SECONDS))
-                                .addLast(new HttpServerCodec())
-                                .addLast(new ChunkedWriteHandler())
-                                .addLast(new HttpObjectAggregator(65535))
-                                .addLast(new HttpRequestHandler())
-                                .addLast(new WebSocketServerProtocolHandler("/websocket"))
-                                .addLast(new NettyConnectManageHandler())
-                                .addLast(new TextWebSocketFrameHandler())
-                        ;*/
-
+                        log.info("NettyServer.initChannel()，当前线程是：" + Thread.currentThread().getName());
 
                         pipeline.addLast(new IdleStateHandler(0, 0, nettyServerConfig.getNettyServerIdleTime(), TimeUnit.SECONDS))
                                 .addLast(new HttpServerCodec())
